@@ -1,6 +1,7 @@
 package main
 
 import (
+	handlers "MinhaApi/Handlers"
 	"MinhaApi/config"
 	"MinhaApi/models"
 	"log"
@@ -20,12 +21,11 @@ func main() {
 
 	defer dbConnection.Close()
 
+	taskHandler := handlers.NewTaskHandler(dbConnection)
+
 	router := mux.NewRouter()
 
-	router.HandleFunc("/tasks", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello, World"))
-	}).Methods("GET")
+	router.HandleFunc("/tasks", taskHandler.ReadTasks).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
