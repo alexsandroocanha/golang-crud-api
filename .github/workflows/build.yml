@@ -1,16 +1,9 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Deployment
+name: Go
 
-on: 
-    pull_request:
-        branches: ["main"]
-    merge_group:
-        types:
-        - opened
-        - synchronize
-        - reopened
+on: workflow_dispatch
 
 jobs:
 
@@ -26,8 +19,11 @@ jobs:
     - name: Install dependenci
       run: sudo apt install docker.io
 
+    - name: Install dependenci
+      run: sudo apt install docker-compose
+
     - name: Build.
-      run: go build -o arquivo
+      run: docker compose up
 
     - name: Test
-      run: ./arquivo
+      run: ./arquivo.exe
