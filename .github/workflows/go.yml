@@ -16,8 +16,6 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.26.2'
-    - name: Install dependenci
-      run: sudo apt install docker.io
 
     - name: Build image
       run: docker build -f Dockerfile.dev .
