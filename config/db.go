@@ -14,7 +14,7 @@ func SetUpDB() *sql.DB {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 
 	dbHost := os.Getenv("DB_HOST")
@@ -28,7 +28,7 @@ func SetUpDB() *sql.DB {
 	dbConnection, err := sql.Open("postgres", connectionStr)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	err = dbConnection.Ping()
