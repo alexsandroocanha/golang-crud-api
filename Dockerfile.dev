@@ -7,16 +7,8 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
-
-
-FROM debian:bookworm-slim AS slim
-
-WORKDIR /app
-COPY --from=build /app/main.bin .
-
-RUN chmod +x ./main
+RUN CGO_ENABLED=0 GOOS=linux go build -o main.bin .
 
 EXPOSE 8080
 
-CMD ["./main.exe"]
+CMD ["./main.bin"]
