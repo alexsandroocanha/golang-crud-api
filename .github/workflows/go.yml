@@ -7,11 +7,7 @@ on:
     pull_request:
         branches: ["main"]
     merge_group:
-        types:
-        - opened
-        - synchronize
-        - reopened
-
+        types: checks_requested
 jobs:
 
   build:
@@ -26,8 +22,6 @@ jobs:
     - name: Install dependenci
       run: sudo apt install docker.io
 
-    - name: Build.
-      run: go build -o arquivo
+    - name: Build image
+      run: docker build -f Dockerfile.dev .
 
-    - name: Test
-      run: ./arquivo
