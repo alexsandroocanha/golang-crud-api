@@ -6,15 +6,11 @@ import (
 	"MinhaApi/models"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
-
-	time.Sleep(10 * time.Second)
-	time.Sleep(10 * time.Second)
 
 	dbConnection := config.SetUpDB()
 
