@@ -7,10 +7,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    env:
-      IMAGE: ${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}/api-golang:${{ github.sha }}
     steps:
-    
     - uses: actions/checkout@v4
     
     - name: Set up Go
@@ -24,10 +21,11 @@ jobs:
           registry: ${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASSWORD }}
-
           
-    - name: Build image
-      run: docker build -f Dockerfile.dev -t $IMAGE .
-
-    - name: Push docker image from Nexus
-      run: docker push $IMAGE
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile.dev
+        push: true
+        tags: ${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}/api-golang:${{ github.sha }}
