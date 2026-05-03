@@ -9,6 +9,7 @@ RUN go build -o main
 FROM debian:bookworm-slim
 
 COPY --from=build /app/main .
+COPY --from=build /app/.env .
 
 EXPOSE 8080
 
