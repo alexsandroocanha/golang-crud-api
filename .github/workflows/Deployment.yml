@@ -19,7 +19,7 @@ jobs:
     - name: Login Nexus from docker
       uses: docker/login-action@v4
       with:
-          registry: ${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}
+          registry: http://${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASSWORD }}
           
