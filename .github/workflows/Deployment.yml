@@ -16,10 +16,15 @@ jobs:
     #   with:
     #     go-version: '1.26.2'
 
+    - name: Configure insecure registry
+      run: |
+        echo '{"insecure-registries":["${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}"]}' | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker
+
     - name: Login Nexus from docker
       uses: docker/login-action@v4
       with:
-          registry: http://177.44.217.233:8082
+          registry: ${{ secrets.NEXUS_HOST }}:${{ secrets.NEXUS_PORT }}
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASSWORD }}
           
