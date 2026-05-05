@@ -34,7 +34,7 @@ func SetUpDB() *sql.DB {
 	err = dbConnection.Ping()
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	fmt.Println("Connected to database")
