@@ -8,17 +8,36 @@ jobs:
   tag:
     name: Tag Release
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.release.outputs.version }}
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: go-semantic-release/action@v1
+        id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  teste:
+    name: Teste Connectiong from Database
+    runs-on: ubuntu-latest
+    needs: tag
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Teste from docker
+      run: docker compose up -d --build
+    
+    - name: Run API test
+      run: curl --fail http://localhost:8080/tasks
+    
+    - name: Shutdown
+      run: docker compose down
           
   build:
     runs-on: ubuntu-latest
-    needs: tag
+    needs: teste
     environment: DOCKER
     steps:
     - uses: actions/checkout@v4
