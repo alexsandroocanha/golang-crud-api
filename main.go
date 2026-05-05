@@ -18,7 +18,7 @@ func main() {
 
 	_, err := dbConnection.Exec(models.CreateTableSQL)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	taskHandler := handlers.NewTaskHandler(dbConnection)
